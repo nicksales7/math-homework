@@ -112,11 +112,29 @@ where $O = \{1, 3, 5, 7, \dots\}$, as the mapping of negative even integers onto
 \end{equation*}
 where $E = \{2, 4, 6, 8, \dots\}$, as the mapping of positive even integers onto even natural numbers. Since $O$ and $E$ are disjoint and $O \cup E = \mathbb{N}$, we define 
 \begin{equation*}
-f : 2 \mathbb{Z} \rightarrow \mathbb{N}, \; \; f(x) = 
-\begin{cases} 
-f_1(x) \text{   if } x < 0 \\ 
-f_2(x) \text{   if } x \geq 0 
-\end{cases}
+    f : 2 \mathbb{Z} \rightarrow \mathbb{N}, \; \; f(x) = 
+    \begin{cases} 
+        f_1(x) \text{   if } x < 0 \\ 
+        f_2(x) \text{   if } x \geq 0 
+    \end{cases}
 \end{equation*}
 which is a bijection as both $f_1 \text{ and } f_2$ are bijective. Since there exists a bijection from $2 \mathbb{Z}$ to $\mathbb{N}$, the set of even integers is equinumerous with the natural numbers. $\Box$
+
+\textbf{Problem 3.2:} Find an explicit surjection $f : \mathbb{R} \rightarrow (0, 1)$.
+
+Proof: To obtain a surjective function, it suffices to map each real number to its corresponding decimal expansion and each integer to a fraction (since $f$ need not be injective). For example:
+\begin{gather*}
+    10.4353 \mapsto 0.4353 \text{  and  } -100000.4353 \mapsto 0.4353 \\
+    0 \mapsto \frac{1}{2} \text{ and } 1 \mapsto \frac{1}{3}
+\end{gather*}
+
+We thus define the surjective function $f$ as:
+\begin{equation*}
+    f(x) = 
+    \begin{cases}
+        x - \lfloor x \rfloor \text{ if } x \notin \mathbb{Z} \\
+        \frac{1}{|x| + 2} \; \; \; \; \text{ if } x \in \mathbb{Z}
+    \end{cases}
+\end{equation*}
+To prove surjectivity on $f$ let $y \in (0, 1)$. Consider the first case if $y \in (0, 1) \backslash \{\frac{1}{n} : n \in \mathbb{N}\}$. Since the decimal expansion of numbers in $\mathbb{R}$ densely fills $(0, 1)$, it follows if $x = a + y$ for some $a \in \mathbb{N}$, then $f(x) = x - \lfloor x \rfloor = (a + y) - a = y$. Further, if $y = \frac{1}{n}$ for some $n \in \mathbb{N}_{\geq 2}$, choose any $(n - 2) \in \mathbb{Z}$, we get: $f(n - 2) = \frac{1}{|n -2| + 2} = \frac{1}{n} = y$. Therefore $f$ is surjective. $\Box$
 \end{document}
