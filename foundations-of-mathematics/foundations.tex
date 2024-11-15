@@ -1,0 +1,122 @@
+\documentclass[11pt]{article}
+
+% Packages
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{import}
+\usepackage{xifthen}
+\usepackage{pdfpages}
+\usepackage{transparent}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=newest}
+
+\newcommand{\incfig}[1]{%
+    \def\svgwidth{8cm}
+    \import{./figures/}{#1.pdf_tex}
+}
+
+% Document settings
+\geometry{a4paper, margin=1in}
+\setlength\parindent{0pt}
+\setlength\parskip{1em}
+
+\title{Problems for Foundations of Mathematics}
+\author{Nicholas Sales}
+\date{} % This will automatically insert today's date
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+\newpage
+    
+\section{Equivalence Relations}
+
+\textbf{Problem 1.1:} Prove that it is impossible to find an equivalence relation $\equiv$ on $\mathbb{R}$ for which $x \equiv y \iff (x - y) \notin \mathbb{Q}$ is true.
+
+Proof: Let $x \in \mathbb{R}$ and assume $\equiv$ is an equivalence relation on the real numbers. Since $\equiv$ is an equivalence relation, it follows $x \equiv x$ as equivalence relations are reflexive. This, however, implies
+\begin{equation*}
+    x - x = 0 \notin \mathbb{Q}
+\end{equation*}
+This is a contradiction. Thus $\equiv$ is not an equivalence relation. $\Box$
+
+\textbf{Problem 1.2:} Let $X = \mathbb{R}$. Show that the relation $\equiv$ defined by $x \equiv y \iff \exists_{r \in X \backslash \{0\}} (x = ry)$ is an equivalence relation. How many equivalence classes does $\equiv$ have?
+
+Proof: Let $x, y, z \in X$. To show $x \equiv x$ (reflexivity), it follows
+\begin{equation*}
+    x = rx \; \; r \in X \backslash \{0\}
+\end{equation*}
+For $r = 1$, this is satisfied, and thus $\equiv$ is reflexive. We now show $x \equiv y \implies y \equiv x$ (symmetry). Since $x \equiv y$, it follows $x = ry$ for some $r \in \mathbb{R} \backslash \{0\}$, with some rearrangement:
+\begin{equation*}
+    x = ry \implies y = \frac{1}{r} x
+\end{equation*}
+Since $\mathbb{R} \backslash \{0\}$ is closed under inverses, $\frac{1}{r} \in \mathbb{R} \backslash \{0\}$, thus $\equiv$ is symmetric. We conclude by proving $x \equiv y \land y \equiv z \implies x \equiv z$ (transitivity) and stating the number of equivalence classes on $\equiv$. Since $x \equiv y$ and $y \equiv z$, it follows $x = ry$ and $y = sz$ for some $r, s \in \mathbb{R} \backslash \{0\}$. Replacing $y$ in $x = ry$ by $sz$ we obtain:
+\begin{equation*}
+    x = r(sz) = (rs)z
+\end{equation*}
+Since $\mathbb{R} \backslash \{0\}$ is closed under multiplication $rs \in \mathbb{R} \backslash \{0\}$, and so $\equiv$ is transitive. We find the number of equivalence classes ($[a] = \{x \in X : x \equiv a\}$). Let $a \in X$. We consider two cases where $a = 0$ and $a \neq 0$. If $a = 0$, then it follows $x = r0 \implies x = 0$ for any $r \in \mathbb{R} \backslash \{0\}$. So $[0] = \{0\}$. If $a \neq 0$,  for nonzero $x$, we have $x = ra \implies r = \frac{x}{a}$ which is well-defined for some $r \in \mathbb{R} \backslash \{0\}$. Thus $[a] = \mathbb{R} \backslash \{0\}$. $\Box$
+
+\section{Partial or Transfinite Induction}
+
+\textbf{Problem 2.1:} Let $(X, \preceq)$ be a totally ordered set. Prove that if $x_o \in X$ is a minimal element, then it is also a minimum element.
+
+Proof: Recall that $x_o$ is a minimal element if there is no $x \in X$ such that $x \preceq x_o$ and $x \neq x_0$, and it is a minimum element if for any $x \in X$ it follows $x_o \preceq x$. We prove this by contradiction. Assume $x_o \in X$ is minimal but not a minimum element. Since $X$ is totally ordered, it follows $x \preceq x_o$ or $x_o \preceq x$ for any $x \in X$. It follows $x \preceq x_o$ as as $x_o$ is assumed not to be a minimum element. It must be that $x \neq x_o$ as $x = x_o \land x \preceq x_o \implies x_o \preceq x$ by reflexivity of $\preceq$. However, if $x \neq x_o$ with $x \preceq x_o$ this is contradictory to our claim that $x_o$ is minimal. Therefore $x_o$ must be a minimum element. $\Box$
+
+\newpage
+
+\textbf{Problem 2.2:} Let $(X, \preceq)$ be a totally ordered set, and $A \subseteq X$. Prove that $\text{sup}(A)$ and $\text{inf}(A)$, if exist, are unique.
+
+Proof: Recall the supremum is defined as an upper bound of $A$ ($a \preceq x$ for all $a \in A$), $x$, such that for any upper bound of $A$, $x'$, $x \preceq x'$. And the infimum is defined as a lower bound of $A$ ($y \preceq a$ for all $a \in A$), $y$, such that for any lower bound of $A$, $y'$, $y' \preceq y$. We prove this by contradiction. Assume $x, \; x_o$ are both $\text{sup}(A)$ and $y, y_o$ are both $\text{inf}(A)$ with $x \neq x_o$ and $y \neq y_o$. Since $x, x_o$ are both upper bounds of $A$, and likewise $y, y_o$ are both lower bounds of $A$, by the definition of supremum and infimum:
+\begin{gather*}
+    x \preceq x_o \text{ and } x_o \preceq x \\
+    y_o \preceq y \text{ and } y \preceq y_o 
+\end{gather*}
+Since $\preceq$ is antisymmetric, the above can only hold if $x = x_o$ and $y = y_o$. This contradicts our assumption that $x \neq x_o$ and $y \neq y_o$. Therefore $\text{sup}(A)$ and $\text{inf}(A)$ must be unique. $\Box$
+
+\textbf{Problem 2.3:} Let $\prec_Y$ be a strict partial order on a set $Y$, and $f : X \rightarrow Y$ be a function. Define a relation $\prec_X$ on $X$ as follows. For every $x_1, x_2 \in X$:
+\begin{equation*}
+    x_1 \prec_X x_2 \iff f(x_1) \prec_Y f(x_2)
+\end{equation*}
+Prove that $\prec_X$ is a strict partial order on $X$.
+
+Proof: Recall that $\prec_Y$ is a strict partial order if it is transitive and irreflexive. Let $x_1, x_2, x_3 \in X$. We first prove transitivity. Assume $x_1 \prec_X x_2 \text{ and } x_2 \prec_X x_3$. It follows that 
+\begin{equation*}
+    f(x_1) \prec_Y f(x_2) \text{ and } f(x_2) \prec_Y f(x_3)   
+\end{equation*}
+This implies $f(x_1) \prec_Y f(x_3)$ by transitivity of $\prec_Y$ being a strict partial order. So it also follows $x_1 \prec_X x_3$, and hence $\prec_X$ is transitive. We now show $\prec_X$ is irreflexive by contradiction. Assume $x_1 \prec_X x_1$. It follows by the definition of $\prec_X$
+\begin{equation*}
+    f(x_1) \prec_Y f(x_1)
+\end{equation*}
+This is, however, a contradiction as $\prec_Y$ is a strict partial order and so is irreflexive. Thus $x_1 \nprec_X x_1$, and since $\prec_X$ is both transitive and irreflexive it is a strict partial order. $\Box$
+
+\section{Cardinality}
+
+\textbf{Problem 3.1:} Prove the following statements by giving explicit bijections:
+
+\textbf{a)} $2 \mathbb{Z} \sim \mathbb{N}$
+
+Proof: We split $2 \mathbb{Z}$ into two disjoint sets $2\mathbb{Z}_{< 0} = \{\dots, -6, -4, -2\}$ and $2\mathbb{Z}_{\geq 0} = \{0, 2, 4, \dots\}$ that satisfy $2 \mathbb{Z}_{< 0} \cup 2 \mathbb{Z}_{\geq 0} = 2 \mathbb{Z}$. We can define the bijection 
+\begin{equation*}
+    f_1 : 2\mathbb{Z}_{< 0} \rightarrow O \subseteq \mathbb{N}, \; \; x \mapsto -x - 1
+\end{equation*}
+where $O = \{1, 3, 5, 7, \dots\}$, as the mapping of negative even integers onto odd natural numbers. Now, we can define the bijection
+\begin{equation*}
+    f_2 : 2\mathbb{Z}_{\geq 0} \rightarrow E \subseteq \mathbb{N}, \; \; x \mapsto x + 2
+\end{equation*}
+where $E = \{2, 4, 6, 8, \dots\}$, as the mapping of positive even integers onto even natural numbers. Since $O$ and $E$ are disjoint and $O \cup E = \mathbb{N}$, we define 
+\begin{equation*}
+f : 2 \mathbb{Z} \rightarrow \mathbb{N}, \; \; f(x) = 
+\begin{cases} 
+f_1(x) \text{   if } x < 0 \\ 
+f_2(x) \text{   if } x \geq 0 
+\end{cases}
+\end{equation*}
+which is a bijection as both $f_1 \text{ and } f_2$ are bijective. Since there exists a bijection from $2 \mathbb{Z}$ to $\mathbb{N}$, the set of even integers is equinumerous with the natural numbers. $\Box$
+\end{document}
